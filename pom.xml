@@ -69,4 +69,65 @@
             </plugin>
         </plugins>
     </build>
+
+    <!-- Client code generation -->
+    <profiles>
+        <profile>
+            <id>angular</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>pre-integration-test</id>
+                                <goals>
+                                    <goal>start</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>post-integration-test</id>
+                                <goals>
+                                    <goal>stop</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.openapitools</groupId>
+                        <artifactId>openapi-generator-maven-plugin</artifactId>
+                        <version>4.2.2</version>
+                        <executions>
+                            <execution>
+                                <id>angular-client-code-generation</id>
+                                <phase>integration-test</phase>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                                <configuration>
+                                    <inputSpec>http://localhost:8080/v3/api-docs</inputSpec>
+                                    <output>${project.build.directory}/generated-sources/angular</output>
+
+                                    <generatorName>typescript-angular</generatorName>
+                                    <!--
+                                        Use this option to dump the configuration help for the specified generator
+                                        instead of generating sources:
+                                        <configHelp>true</configHelp>
+                                    -->
+
+                                    <configOptions>
+                                        <!--
+                                            Put generator-specific parameters here, e.g. for typescript-angular:
+                                            <apiModulePrefix>Backend</apiModulePrefix>
+                                         -->
+                                    </configOptions>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
