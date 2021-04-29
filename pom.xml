@@ -97,7 +97,7 @@
                     <plugin>
                         <groupId>org.openapitools</groupId>
                         <artifactId>openapi-generator-maven-plugin</artifactId>
-                        <version>4.2.2</version>
+                        <version>5.1.0</version>
                         <executions>
                             <execution>
                                 <id>angular-client-code-generation</id>
